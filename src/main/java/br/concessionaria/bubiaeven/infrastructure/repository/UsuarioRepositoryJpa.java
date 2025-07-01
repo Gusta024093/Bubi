@@ -1,6 +1,7 @@
 package br.concessionaria.bubiaeven.infrastructure.repository;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,7 +38,7 @@ public class UsuarioRepositoryJpa implements UsuarioRepository {
 	}
 	
 	@Override
-	public Usuario buscar(Long id) {
+	public Usuario buscar(UUID id) {
 		return manager.find(Usuario.class, id);
 	}
 	

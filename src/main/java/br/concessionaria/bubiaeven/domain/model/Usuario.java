@@ -3,6 +3,7 @@ package br.concessionaria.bubiaeven.domain.model;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -12,6 +13,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PostPersist;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 
@@ -20,13 +22,9 @@ import jakarta.persistence.Transient;
 public class Usuario {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Transient
-	private Long id;
-	
 	@JsonProperty("id_nome")
-	@Column(name= "id", length = 255)
-	private String uuid;
+	@Column(name = "id", columnDefinition = "BINARY(16)")
+	private UUID id;
 	
 	@JsonProperty("nome")
 	@Column(name= "nome", length = 255)
@@ -59,14 +57,10 @@ public class Usuario {
 		
 	}
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 	
-	public String getUuid() {
-		return uuid;
-	}
-
 	public String getNome() {
 		return nome;
 	}
@@ -102,16 +96,15 @@ public class Usuario {
 	public String getTipoUsuario() {
 		return tipoUsuario;
 	}
-	
-	
 
-	public void setTipoUsuario(String tipoUsuario) throws Exception {
+	public void setTipoUsuario(String tipoUsuario) throws IllegalArgumentException {
 		for (String tipoUsuarioObtido : listaUsuarios) {
 			if (tipoUsuarioObtido.equalsIgnoreCase(tipoUsuario)) {
 				this.tipoUsuario = tipoUsuario;
+				return;
 			}
 		}
-		throw new Exception();
+		throw new IllegalArgumentException();
 	}
 
 	public String getDataCriacao() {
@@ -138,9 +131,17 @@ public class Usuario {
 		Usuario other = (Usuario) obj;
 		return Objects.equals(id, other.id);
 	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id=" + id + ", nome=" + nome + ", email=" + email + ", senhaHash=" + senhaHash + ", telefone="
+				+ telefone + ", tipoUsuario=" + tipoUsuario + ", dataCriacao=" + dataCriacao + "]";
+	}	
 	
-	@PostPersist
-	public void inserirId() {
-		this.uuid = "UUID" + id;
+	@PrePersist
+	public void gerarIdAleatorio() {
+		if (this.id == null) {
+			this.id = UUID.randomUUID();
+		}
 	}
 }
