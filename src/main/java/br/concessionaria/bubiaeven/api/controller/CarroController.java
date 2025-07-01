@@ -35,7 +35,7 @@ public class CarroController {
 		return carroRepository.listar();
 	}
 	
-	@GetMapping("/{usuarioCpf}")
+	@GetMapping("/{carroId}")
 	public Carro listar(@PathVariable("carroId") UUID id){
 		return carroRepository.buscar(id);
 	}
