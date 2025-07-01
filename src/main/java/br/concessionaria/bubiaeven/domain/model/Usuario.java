@@ -25,7 +25,7 @@ import jakarta.persistence.Transient;
 public class Usuario {
 	
 	@Id
-	@JsonProperty("id_nome")
+	@JsonProperty("id_usuario")
 	@Column(name = "id", columnDefinition = "BINARY(16)")
 	private UUID id;
 	
