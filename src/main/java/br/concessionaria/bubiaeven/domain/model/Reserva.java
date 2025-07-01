@@ -1,13 +1,17 @@
 package br.concessionaria.bubiaeven.domain.model;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
+
+import org.hibernate.annotations.CurrentTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
@@ -20,26 +24,25 @@ public class Reserva {
 	@Column(name="id", columnDefinition = "BINARY(16)")
 	private UUID id;
 	
-	
-	//TODO
 	@ManyToOne
 	@JsonProperty("usuario_id")
-	@Column(name="usuario_id")
+	@JoinColumn(name="usuario_id")
 	private Usuario usuario;
 	
-	//TODO
 	@ManyToOne
 	@JsonProperty("carro_id")
-	@Column(name="carro_id")
+	@JoinColumn(name="carro_id")
 	private Carro carro;
 	
+	@CurrentTimestamp
 	@JsonProperty("data_inicio")
 	@Column(name="data_inicio")
-	private String dataInicio;
+	private LocalDateTime dataInicio;
 	
+	@CurrentTimestamp
 	@JsonProperty("data_final")
 	@Column(name="data_final")
-	private String dataFinal;
+	private LocalDateTime dataFinal;
 	
 	@JsonProperty("status")
 	@Column(name="status")
@@ -53,19 +56,19 @@ public class Reserva {
 		
 	}
 
-	public String getDataInicio() {
+	public LocalDateTime getDataInicio() {
 		return dataInicio;
 	}
 
-	public void setDataInicio(String dataInicio) {
+	public void setDataInicio(LocalDateTime dataInicio) {
 		this.dataInicio = dataInicio;
 	}
 
-	public String getDataFinal() {
+	public LocalDateTime getDataFinal() {
 		return dataFinal;
 	}
 
-	public void setDataFinal(String dataFinal) {
+	public void setDataFinal(LocalDateTime dataFinal) {
 		this.dataFinal = dataFinal;
 	}
 

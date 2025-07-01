@@ -1,7 +1,11 @@
 package br.concessionaria.bubiaeven.domain.model;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -40,13 +44,21 @@ public class Carro {
 	@Column(name="cor")
 	private String cor;
 	
+	@JsonProperty("quilometragem")
+	@Column(name="quilometragem")
+	private Long quilometragem;
+	
+	@JsonProperty("cambio")
+	@Column(name="cambio")
+	private String cambio;
+	
 	@JsonProperty("combustivel")
 	@Column(name="combustivel")
 	private String combustivel;
 	
 	@JsonProperty("numero_portas")
 	@Column(name="numero_portas")
-	private String numeroPortas;
+	private Long numeroPortas;
 	
 	@JsonProperty("categoria")
 	@Column(name="categoria")
@@ -54,15 +66,16 @@ public class Carro {
 	
 	@JsonProperty("valor")
 	@Column(name="valor")
-	private Long valor;
+	private BigDecimal valor;
 	
 	@JsonProperty("status")
 	@Column(name="status")
 	private String status;
 	
+	@CreationTimestamp
 	@JsonProperty("data_cadastro")
 	@Column(name="data_cadastro")
-	private String dataCadastro;
+	private LocalDateTime dataCadastro;
 	
 	public Carro() {
 		
@@ -116,11 +129,11 @@ public class Carro {
 		this.combustivel = combustivel;
 	}
 
-	public String getNumeroPortas() {
+	public Long getNumeroPortas() {
 		return numeroPortas;
 	}
 
-	public void setNumeroPortas(String numeroPortas) {
+	public void setNumeroPortas(Long numeroPortas) {
 		this.numeroPortas = numeroPortas;
 	}
 
@@ -132,11 +145,11 @@ public class Carro {
 		this.categoria = categoria;
 	}
 
-	public Long getValor() {
+	public BigDecimal getValor() {
 		return valor;
 	}
 
-	public void setValor(Long valor) {
+	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
 
@@ -148,16 +161,32 @@ public class Carro {
 		this.status = status;
 	}
 
-	public String getDataCadastro() {
+	public LocalDateTime getDataCadastro() {
 		return dataCadastro;
 	}
 
-	public void setDataCadastro(String dataCadastro) {
+	public void setDataCadastro(LocalDateTime dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
 
 	public UUID getId() {
 		return id;
+	}
+
+	public Long getQuilometragem() {
+		return quilometragem;
+	}
+
+	public void setQuilometragem(Long quilometragem) {
+		this.quilometragem = quilometragem;
+	}
+
+	public String getCambio() {
+		return cambio;
+	}
+
+	public void setCambio(String cambio) {
+		this.cambio = cambio;
 	}
 
 	@Override

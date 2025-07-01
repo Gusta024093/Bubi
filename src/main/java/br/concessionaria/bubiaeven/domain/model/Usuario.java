@@ -1,9 +1,12 @@
 package br.concessionaria.bubiaeven.domain.model;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+
+import org.hibernate.annotations.CurrentTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -46,9 +49,10 @@ public class Usuario {
 	@Column(name= "tipo", length = 255)
 	private String tipoUsuario;
 	
+	@CurrentTimestamp
 	@JsonProperty("data_criacao")
 	@Column(name= "data_criacao", length = 255)
-	private String dataCriacao;
+	private LocalDateTime dataCriacao;
 	
 	@Transient
 	private List<String> listaUsuarios = List.of("Cliente", "Vendedor", "Admin");
@@ -107,11 +111,11 @@ public class Usuario {
 		throw new IllegalArgumentException();
 	}
 
-	public String getDataCriacao() {
+	public LocalDateTime getDataCriacao() {
 		return dataCriacao;
 	}
 
-	public void setDataCriacao(String dataCriacao) {
+	public void setDataCriacao(LocalDateTime dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
 
