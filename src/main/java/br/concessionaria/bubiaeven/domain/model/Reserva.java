@@ -19,6 +19,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="Reserva")
 public class Reserva {
+	
 	@Id
 	@JsonProperty("id_reserva")
 	@Column(name="id", columnDefinition = "BINARY(16)")
@@ -31,7 +32,7 @@ public class Reserva {
 	
 	@ManyToOne
 	@JsonProperty("carro_id")
-	@JoinColumn(name="carro_id")
+	@JoinColumn(name="carro_status_id")
 	private Carro carro;
 	
 	@CurrentTimestamp

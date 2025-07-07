@@ -28,7 +28,7 @@ public class Venda {
 	
 	@JsonProperty("id_carro")
 	@ManyToOne
-	@JoinColumn(name="carro_id")
+	@JoinColumn(name="carro_status_id")
 	private Carro carro;
 	
 	@JsonProperty("id_comprador")

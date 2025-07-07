@@ -19,6 +19,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name="Carro")
 public class Carro {
+	
 	@Id
 	@JsonProperty("id_carro")
 	@Column(name="id", columnDefinition = "BINARY(16)")
@@ -36,17 +37,9 @@ public class Carro {
 	@Column(name="ano")
 	private Long ano;
 	
-	@JsonProperty("placa")
-	@Column(name="placa")
-	private String placa;
-	
-	@JsonProperty("cor")
+	@JsonProperty("cor_padrao")
 	@Column(name="cor")
 	private String cor;
-	
-	@JsonProperty("quilometragem")
-	@Column(name="quilometragem")
-	private Long quilometragem;
 	
 	@JsonProperty("cambio")
 	@Column(name="cambio")
@@ -64,13 +57,9 @@ public class Carro {
 	@Column(name="categoria")
 	private String categoria;
 	
-	@JsonProperty("valor")
+	@JsonProperty("valor_fabrica")
 	@Column(name="valor")
 	private BigDecimal valor;
-	
-	@JsonProperty("status")
-	@Column(name="status")
-	private String status;
 	
 	@CreationTimestamp
 	@JsonProperty("data_cadastro")
@@ -80,7 +69,7 @@ public class Carro {
 	public Carro() {
 		
 	}
-
+	
 	public String getMarca() {
 		return marca;
 	}
@@ -104,21 +93,20 @@ public class Carro {
 	public void setAno(Long ano) {
 		this.ano = ano;
 	}
-
-	public String getPlaca() {
-		return placa;
-	}
-
-	public void setPlaca(String placa) {
-		this.placa = placa;
-	}
-
 	public String getCor() {
 		return cor;
 	}
 
 	public void setCor(String cor) {
 		this.cor = cor;
+	}
+
+	public String getCambio() {
+		return cambio;
+	}
+
+	public void setCambio(String cambio) {
+		this.cambio = cambio;
 	}
 
 	public String getCombustivel() {
@@ -153,14 +141,6 @@ public class Carro {
 		this.valor = valor;
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
 	public LocalDateTime getDataCadastro() {
 		return dataCadastro;
 	}
@@ -171,22 +151,6 @@ public class Carro {
 
 	public UUID getId() {
 		return id;
-	}
-
-	public Long getQuilometragem() {
-		return quilometragem;
-	}
-
-	public void setQuilometragem(Long quilometragem) {
-		this.quilometragem = quilometragem;
-	}
-
-	public String getCambio() {
-		return cambio;
-	}
-
-	public void setCambio(String cambio) {
-		this.cambio = cambio;
 	}
 
 	@Override
@@ -208,11 +172,12 @@ public class Carro {
 
 	@Override
 	public String toString() {
-		return "Carro [id=" + id + ", marca=" + marca + ", modelo=" + modelo + ", ano=" + ano + ", placa=" + placa
-				+ ", cor=" + cor + ", combustivel=" + combustivel + ", numeroPortas=" + numeroPortas + ", categoria="
-				+ categoria + ", valor=" + valor + ", status=" + status + ", dataCadastro=" + dataCadastro + "]";
+		return "Carro [id=" + id + ", marca=" + marca + ", modelo=" + modelo + ", ano=" + ano
+				+ ", cor=" + cor + ", cambio=" + cambio + ", combustivel=" + combustivel + ", numeroPortas="
+				+ numeroPortas + ", categoria=" + categoria + ", valor=" + valor + ", dataCadastro=" + dataCadastro
+				+ "]";
 	}
-	
+
 	@PrePersist
 	public void gerarIdAleatorio() {
 		if (this.id == null) {

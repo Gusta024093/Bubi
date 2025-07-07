@@ -15,46 +15,49 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.concessionaria.bubiaeven.domain.model.Carro;
+import br.concessionaria.bubiaeven.domain.model.CarroStatus;
 import br.concessionaria.bubiaeven.domain.model.Usuario;
 import br.concessionaria.bubiaeven.domain.repository.CarroRepository;
+import br.concessionaria.bubiaeven.domain.repository.CarroStatusRepository;
 import br.concessionaria.bubiaeven.infrastructure.repository.CarroRepositoryJpa;
+import br.concessionaria.bubiaeven.infrastructure.repository.CarroStatusRepositoryJpa;
 
 @RestController
-@RequestMapping("/carros")
-public class CarroController {
+@RequestMapping("/concessionaria")
+public class CarroStatusController {
 	
-	private final CarroRepositoryJpa carroRepositoryJpa;
+	private final CarroStatusRepositoryJpa carroStatusRepositoryJpa;
 	
 	@Autowired
-	private CarroRepository carroRepository;
+	private CarroStatusRepository carroStatusRepository;
 	
-	public CarroController(CarroRepositoryJpa carroRepositoryJpa) {
-		this.carroRepositoryJpa = carroRepositoryJpa;
+	public CarroStatusController(CarroStatusRepositoryJpa carroStatusRepositoryJpa) {
+		this.carroStatusRepositoryJpa = carroStatusRepositoryJpa;
 	}
 	
 	@GetMapping
 	@ResponseStatus(HttpStatus.OK)
-	public List<Carro> listar() {
-		return carroRepository.listar();
+	public List<CarroStatus> listar() {
+		return carroStatusRepository.listar();
 	}
 	
 	@GetMapping("/{carroId}")
 	@ResponseStatus(HttpStatus.OK)
-	public Carro listar(@PathVariable("carroId") UUID id){
-		return carroRepository.buscar(id);
+	public CarroStatus listar(@PathVariable("carroId") UUID id){
+		return carroStatusRepository.buscar(id);
 	}
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Carro adicionar(@RequestBody Carro carro){
-		return carroRepository.salvar(carro);
+	public CarroStatus adicionar(@RequestBody CarroStatus carroStatus){
+		return carroStatusRepository.salvar(carroStatus);
 	}
 	
-	@PostMapping("s")
+	@PostMapping("/s")
 	@ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> adicionarCarros(@RequestBody List<Carro> carros) {
-        for (Carro carro : carros) {
-            carroRepository.salvar(carro);
+    public ResponseEntity<?> adicionarCarros(@RequestBody List<CarroStatus> carrosStatus) {
+        for (CarroStatus carroStatus : carrosStatus) {
+        	carroStatusRepository.salvar(carroStatus);
         }
         return ResponseEntity.status(HttpStatus.CREATED).body("Todos os carros foram salvos com sucesso.");
     }
